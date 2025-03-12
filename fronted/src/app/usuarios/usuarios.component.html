@@ -1,0 +1,57 @@
+<div class="usuarios-container">
+    <h2 class="titulo">Listado de Usuarios</h2>
+  
+    <!-- Formulario de búsqueda -->
+    <div class="search-container">
+      <input 
+        type="text" 
+        [(ngModel)]="search" 
+        (keyup)="buscarUsuarios()" 
+        placeholder="Buscar por nombre, apellido o correo"
+        class="search-input"
+      >
+    </div>
+  
+    <!-- Mensaje cuando no se encuentran usuarios -->
+    <div *ngIf="mensaje" class="no-results-message">
+      <p>{{ mensaje }}</p>
+    </div>
+  
+    <!-- Tabla de usuarios -->
+    <table *ngIf="usuarios.length > 0" class="usuarios-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Apellido 1</th>
+          <th>Apellido 2</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuarios">
+          <td>{{ usuario.name }}</td>
+          <td>{{ usuario.surname1 }}</td>
+          <td>{{ usuario.surname2 }}</td>
+          <td>{{ usuario.email }}</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- Paginación -->
+    <div *ngIf="usuarios.length > 0" class="pagination">
+      <button 
+        (click)="cambiarPagina(currentPage - 1)" 
+        [disabled]="currentPage === 1" 
+        class="pagination-button"
+      >Anterior</button>
+  
+      <span class="pagination-text">Página {{ currentPage }} de {{ totalPages }}</span>
+  
+      <button 
+        (click)="cambiarPagina(currentPage + 1)" 
+        [disabled]="currentPage === totalPages" 
+        class="pagination-button"
+      >Siguiente</button>
+    </div>
+</div>
+  
